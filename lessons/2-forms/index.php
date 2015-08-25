@@ -113,6 +113,46 @@
                     &nbsp;
                 </div>
             </div>
+
+            <!-- New Attributes -->
+            <div class="row">
+                <div class="col-xs-12 col-md-6 col-sm-6 col-lg-6">
+                    <h2>Attributes: Required, Autofocus</h2>
+
+                    <div class="form-group">
+                        <label for="required-attr">Required</label>
+                        <input name="required-attr" id="required-attr" required="required" type="text"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="autofocus-attr">Autofocus</label>
+                        <input id="autofocus-attr" name="autofocus-attr" type="text" autofocus="autofocus"/>
+                        <p>Если в документе <strong>НЕ ОДИН</strong> атрибут autofocus - то при загрузге страницы будет выбран первый элемент, содержащий данный аттрибут</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="placeholder-attr">Placeholder</label>
+                        <input id="placeholder-attr" name="placeholder-attr" type="text" placeholder="Please fill this field like at this examples"/>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-md-6 col-sm-6 col-lg-6">
+                <h2>Attributes: Autocomplete, Pattern</h2>
+                    <div class="form-group">
+                        <label for="autocomplete-attr-off">Autocomplete OFF</label>
+                        <input id="autocomplete-attr-off" name="autocomplete-attr" type="text" autocomplete="off"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="autocomplete-attr-on">Autocomplete ON</label>
+                        <input id="autocomplete-attr-on" name="autocomplete-attr" type="text" autocomplete="on"/>
+                        <p>При обновлении страницы в элементе содержащем аттрибут активным введенные данные сохранятся. При сабмите формы данные, естественно, очищаются</p>
+                        <p>Также можно проверить работы аттрибута перейдя на другую страницу, а затем вернуться назад</p><a href="http://google.com">Google page link</a>
+                    </div>
+                    <div class="from-group">
+                        <label for="pattern-attr">Pattern</label>
+                        <input id="pattern-attr" name="pattern-attr" type="tel" pattern="\+38 \(\d{3}\) \d{3}-\d{2}-\d{2}" title="+38 (000) 111-11-11"/>
+                        <p>pattern - содержит регулярное выражение, а подсказка формируется из атрибута title</p>
+                    </div>
+                </div>
+            </div>
             <div class="row">
                 <input class="btn btn-primary" type="submit"/>
             </div>
