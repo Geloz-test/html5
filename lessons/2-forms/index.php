@@ -158,7 +158,35 @@
             </div>
         </div>
     </form>
-    <script src="/js/jquery-1.11.3.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/jquery-1.11.3.min.js" type="text/javascript"></script>
+    <script src="/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="/js/modernizr.custom.46209.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        //Autofocus JS imitation
+        if (! Modernizr.input.autofocus) {
+            $('input[autofocus]').first().focus();
+        }
+        //Placeholder JS imitation
+        if (! Modernizr.input.placeholder) {
+            $('input[placeholder]')
+                .focus(function () {
+                    var self = $(this);
+                    if (self.val() != self.attr('placeholder')) {
+                        return null;
+                    }
+                    self.val('');
+                })
+                .blur(function () {
+                    var self = $(this);
+                    if (self.val() != '') {
+                        return null;
+                    }
+                    self.val(self.attr('placeholder'));
+                })
+            ;
+        }
+        //Date Time Datetime JS imitation
+        //Use JQueryUI
+    </script>
 </body>
 </html>
