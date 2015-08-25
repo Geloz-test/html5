@@ -15,7 +15,6 @@
     <body>
         <div class="main">
             <ul class="lessons">
-
                 <?php
                     foreach($lessons as $lessonData)
                     {
