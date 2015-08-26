@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>4 - Microdata & data-*</title>
     <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/prism.css"/>
 </head>
 <body>
 <div class="container">
@@ -61,11 +62,96 @@
     </div>
     <div class="row">
         <h2>Attribute: data-*</h2>
+        <h4>Имя аттрибута</h4>
+        <p>Должен быть как минимум 1 символ в длину и использовать префикс data-</p>
+        <h4>Значение аттрибута</h4>
+        <p>Значением может быть любая строка</p>
+        <h4>Пример пользовательского аттрибута</h4>
+        <p>
+            data-bind="src"
+            data-validation-email="please enter valid email"
+        </p>
+        <h4>Обращение к атрибутам данных через Javascript</h4>
+        <pre>
+            <code class="language-javascript">
+                var v = e.getAttribute('data-bind');
+                e.setAttribute('data-bind', 'new value');
 
+                // Этот способ не изменяет сам аттрибут
+                var v = e.dataset.bind;
+                e.dataset.bind = 'new value';
+
+                var v = e.dataset.multiWordDataAttribute; // get data-multi-word-data-attribute
+            </code>
+        </pre>
+    </div>
+    <div class="row">
+        <h2>Пример</h2>
+        <p>Есть список с аттрибутом data-color</p>
+        <ul id="data-example">
+            <li data-color="yellow">Yellow</li>
+            <li data-color="black">Black</li>
+            <li data-color="white">White</li>
+            <li data-color="green">Green</li>
+        </ul>
+        <pre>
+            <code class="language-javascript">
+                //Use data attr feature for old browser property (Tested at IE8)
+                var dataList = document.getElementById('data-example').children;
+
+                function showDataColorAttrFor(list){
+                console.log('Showing data color attrs');
+                for (var i = 0, dataItem = dataList[0]; i < dataList.length; i++, dataItem=dataList[i]) {
+                if (typeof dataItem.dataset == 'undefined') {
+                console.log(dataItem.getAttribute('data-color'));
+                } else {
+                console.log(dataItem.dataset.color);
+                }
+                }
+                }
+
+                showDataColorAttrFor(dataList);
+
+                console.log('Changing data attrs throw dataset');
+                // Change data attrs at #data-example throw dataset
+                for (var i = 0, dataItem = dataList[0]; i < dataList.length; i++, dataItem=dataList[i]) {
+                dataItem.dataset.color = 'blue';
+                }
+
+                showDataColorAttrFor(dataList);
+            </code>
+        </pre>
     </div>
 </div>
 <script src="/js/jquery-1.11.3.min.js" type="text/javascript"></script>
 <script src="/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="/js/modernizr.custom.46209.js" type="text/javascript"></script>
+<script src="/js/prism.js"></script>
+<script>
+    //Use data attr feature for old browser property (Tested at IE8)
+    var dataList = document.getElementById('data-example').children;
+
+    function showDataColorAttrFor(list){
+        console.log('Showing data color attrs');
+        for (var i = 0, dataItem = dataList[0]; i < dataList.length; i++, dataItem=dataList[i]) {
+            if (typeof dataItem.dataset == 'undefined') {
+                console.log(dataItem.getAttribute('data-color'));
+            } else {
+                console.log(dataItem.dataset.color);
+            }
+        }
+    }
+
+    showDataColorAttrFor(dataList);
+
+    console.log('Changing data attrs throw dataset');
+    // Change data attrs at #data-example throw dataset
+    for (var i = 0, dataItem = dataList[0]; i < dataList.length; i++, dataItem=dataList[i]) {
+        dataItem.dataset.color = 'blue';
+    }
+
+    showDataColorAttrFor(dataList);
+
+</script>
 </body>
 </html>
