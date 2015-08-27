@@ -1,3 +1,13 @@
+<?php
+function getStylizedCode($code = '', $type = 'markup', $isNeedEncode = true) {
+    return sprintf(
+        '<pre><code class="language-%s">%s</code></pre>',
+        $type,
+        $isNeedEncode ? htmlentities($code, null, 'utf-8') : $code
+    );
+}
+
+?>
 <!DOCTYPE html>
 <html>
 <head lang="en">
@@ -72,55 +82,56 @@
             data-validation-email="please enter valid email"
         </p>
         <h4>Обращение к атрибутам данных через Javascript</h4>
-        <pre>
-            <code class="language-javascript">
-                var v = e.getAttribute('data-bind');
-                e.setAttribute('data-bind', 'new value');
+<?php echo getStylizedCode("var v = e.getAttribute('data-bind');
+e.setAttribute('data-bind', 'new value');
 
-                // Этот способ не изменяет сам аттрибут
-                var v = e.dataset.bind;
-                e.dataset.bind = 'new value';
+// Этот способ не изменяет сам аттрибут
+var v = e.dataset.bind;
+e.dataset.bind = 'new value';
 
-                var v = e.dataset.multiWordDataAttribute; // get data-multi-word-data-attribute
-            </code>
-        </pre>
+var v = e.dataset.multiWordDataAttribute; // get data-multi-word-data-attribute", 'javascript'); ?>
+
     </div>
     <div class="row">
         <h2>Пример</h2>
+
         <p>Есть список с аттрибутом data-color</p>
-        <ul id="data-example">
+        <ul id="data-example" class="hidden">
             <li data-color="yellow">Yellow</li>
             <li data-color="black">Black</li>
             <li data-color="white">White</li>
             <li data-color="green">Green</li>
         </ul>
-        <pre>
-            <code class="language-javascript">
-                //Use data attr feature for old browser property (Tested at IE8)
-                var dataList = document.getElementById('data-example').children;
+<?php echo getStylizedCode('<ul id="data-example" class="hidden">
+    <li data-color="yellow">Yellow</li>
+    <li data-color="black">Black</li>
+    <li data-color="white">White</li>
+    <li data-color="green">Green</li>
+</ul>'); ?>
+        <p>Для старых браузеров свойство dataset не определено (проверено на IE8)
+            поэтому возможно придется определять условие</p>
+        <?php echo getStylizedCode("var dataList = document.getElementById('data-example').children;
+function showDataColorAttrFor(list){
+console.log('Showing data color attrs');
+    for (var i = 0, dataItem = dataList[0]; i < dataList.length; i++, dataItem=dataList[i]) {
+        if (typeof dataItem.dataset == 'undefined') {
+            console.log(dataItem.getAttribute('data-color'));
+        } else {
+            console.log(dataItem.dataset.color);
+        }
+    }
+}
 
-                function showDataColorAttrFor(list){
-                console.log('Showing data color attrs');
-                for (var i = 0, dataItem = dataList[0]; i < dataList.length; i++, dataItem=dataList[i]) {
-                if (typeof dataItem.dataset == 'undefined') {
-                console.log(dataItem.getAttribute('data-color'));
-                } else {
-                console.log(dataItem.dataset.color);
-                }
-                }
-                }
+showDataColorAttrFor(dataList);
 
-                showDataColorAttrFor(dataList);
+console.log('Changing data attrs throw dataset');
+// Change data attrs at #data-example throw dataset
+for (var i = 0, dataItem = dataList[0]; i < dataList.length; i++, dataItem=dataList[i]) {
+    dataItem.dataset.color = 'blue';
+}
 
-                console.log('Changing data attrs throw dataset');
-                // Change data attrs at #data-example throw dataset
-                for (var i = 0, dataItem = dataList[0]; i < dataList.length; i++, dataItem=dataList[i]) {
-                dataItem.dataset.color = 'blue';
-                }
-
-                showDataColorAttrFor(dataList);
-            </code>
-        </pre>
+showDataColorAttrFor(dataList);
+            ", 'javascript'); ?>
     </div>
 </div>
 <script src="/js/jquery-1.11.3.min.js" type="text/javascript"></script>
